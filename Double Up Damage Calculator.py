@@ -17,7 +17,7 @@ STAB = 1.5
 Type = 1.0
 
 atk_base = (100, 130, 100, 63, 60, 97) #Urshifu (Single Strike)
-atk_EV = (4, 252, 0, 0, 0, 252)
+atk_EV = (4, 196, 0, 0, 0, 252)
 
 def_base = (55, 55, 55, 135, 135, 135) #Flutter Mane
 def_EV = (4, 0, 0, 252, 0, 252)
@@ -43,11 +43,8 @@ def custom_round(x):
 def damage_calc(level, base_power, atk_attack_stat, def_defense_stat):
     # Calculate the intermediate values, rounding each multiplication to the nearest integer
     damage = ((2 * level / 5 + 2) * base_power * (atk_attack_stat / def_defense_stat) / 50 + 2)
-    damage = custom_round(damage) * Crit #Apply Crit modeifier here
-    # Multiply by the modifiers
+    damage = math.floor(damage * Crit)
     return damage
-
-# Applying modifiers (in order of priority)
 
 damage_rolls = []
 for i in range(85, 101):  # Multiply by 0.85 to 1, inclusive
@@ -64,19 +61,7 @@ damage_rolls = [math.floor(damage * Type) for damage in damage_rolls]
 Min_roll = min(damage_rolls)
 Max_roll = max(damage_rolls)
 
-# print("Attacking Pokemon HP stat:", atk_HP_stat)
-# print("Attacking Pokemon Attack stat:", atk_attack_stat)
-# print("Attacking Pokemon Defense stat:", atk_defense_stat)
-# print("Attacking Pokemon Sp. Atk stat:", atk_sp_attack_stat)
-# print("Attacking Pokemon Sp. Def stat:", atk_sp_defense_stat)
-# print("Attacking PokemonSpeed stat:", atk_speed_stat)
-
-# print("Defending Pokemon HP stat:", def_HP_stat)
-# print("Defending Pokemon Attack stat:", def_attack_stat)
-# print("Defending Pokemon Defense stat:", def_defense_stat)
-# print("Defending Pokemon Sp. Atk stat:", def_sp_attack_stat)
-# print("Defending Pokemon Sp. Def stat:", def_sp_defense_stat)
-# print("Defending PokemonSpeed stat:", def_speed_stat)
+print(damage_rolls)
 
 print(atk_EV[1],"Urshifu (Single Strike) Wicked Blow vs.",def_EV[0],"HP /",def_EV[2],"Def Flutter Mane on a crital hit:",damage_rolls[0],"-",damage_rolls[-1], "(",math.floor(Min_roll/def_HP_stat * 100),"% -",math.floor(Max_roll/def_HP_stat * 100),"%)")
 
