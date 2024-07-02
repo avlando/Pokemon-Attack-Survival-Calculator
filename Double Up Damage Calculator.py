@@ -4,9 +4,9 @@
 # Natures for Atk, Def, Sp. Atk, and Sp. Def
 # Crit off and on
 
-
 from itertools import product
 import math
+from Typing import typing
 
 IV = 31
 level = 50
